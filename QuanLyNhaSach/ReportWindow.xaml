@@ -1,0 +1,96 @@
+﻿<Window x:Class="QuanLyNhaSach.ReportWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:QuanLyNhaSach"
+        mc:Ignorable="d"
+        
+         xmlns:uc="clr-namespace:QuanLyNhaSach.UserControlKteam"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+     TextElement.FontWeight="Regular"
+     TextElement.FontSize="13"
+     TextOptions.TextFormattingMode="Ideal"
+     TextOptions.TextRenderingMode="Auto"
+     Background="{DynamicResource MaterialDesignPaper}"
+     FontFamily="{DynamicResource MaterialDesignFont}"
+        ResizeMode="NoResize"
+        WindowStyle="None"
+        WindowStartupLocation="CenterScreen"
+        x:Name="window"
+        
+        Title="Sách" Height="500" Width="700"
+        Loaded="reportLoaded">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <uc:ControlBarUC Tag="{Binding Title, ElementName=window}"></uc:ControlBarUC>
+        </Grid>
+
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <!--các element binding từ selected item test-->
+            <materialDesign:Card Grid.Row="0" Margin="5">
+                <WrapPanel Margin="0 0 0 10">
+                    <TextBlock Style="{StaticResource MaterialDesignDisplay1TextBlock}" >
+                        Báo Cáo Tồn
+                    </TextBlock>
+                </WrapPanel>
+            </materialDesign:Card>
+
+            <materialDesign:Card Grid.Row="1" Margin="5">
+                <WrapPanel>
+                    <ComboBox  Name="month"
+                                materialDesign:HintAssist.Hint="Tháng"
+                                Style="{StaticResource MaterialDesignFloatingHintComboBox}" Width="100" Margin="15">
+                    </ComboBox>
+                    <ComboBox   Name="year"
+                                materialDesign:HintAssist.Hint="Năm"
+                                Style="{StaticResource MaterialDesignFloatingHintComboBox}" Width="100">
+                    </ComboBox>
+                    <ComboBox Name="test"  Margin="5 5 15 5" materialDesign:HintAssist.Hint="Tên Khách Hàng" Style="{StaticResource MaterialDesignFloatingHintComboBox}" >
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="{Binding NgayNhap}" Width="auto" Height="auto"  />
+                                    
+                                </StackPanel>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                    <Button Style="{StaticResource MaterialDesignRaisedButton}" Margin="5"
+                                            Width="100"
+                                            Content="Tìm kiếm"
+                                            ToolTip="Resource name: MaterialDesignRaisedButton"
+                                            Name="searchButton"
+                                    Click="searchReport_Click"
+                                        ></Button>
+                </WrapPanel>
+            </materialDesign:Card>
+
+            <materialDesign:Card Grid.Row="2" Margin="5" VerticalAlignment="Stretch">
+                <ListView Name="input" ItemsSource="{Binding List}"  SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Tên Sách" DisplayMemberBinding="{Binding TenSach}"></GridViewColumn>
+                                <GridViewColumn Header="Tồn Đầu" DisplayMemberBinding="{Binding TonDau}"></GridViewColumn>
+                                <GridViewColumn Header="Phát Sinh" DisplayMemberBinding="{Binding PhatSinh}"></GridViewColumn>
+                                <GridViewColumn Header="Tồn Cuối" DisplayMemberBinding="{Binding TonCuoi}"></GridViewColumn>
+                               
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+            </materialDesign:Card>
+        </Grid>
+    </Grid>
+</Window>

@@ -1,0 +1,193 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="QuanLyNhaSachModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="QuanLyNhaSachEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="ChiTietHoaDons" EntityType="QuanLyNhaSachModel.ChiTietHoaDon" />
+    <EntitySet Name="HoaDons" EntityType="QuanLyNhaSachModel.HoaDon" />
+    <EntitySet Name="KhachHangs" EntityType="QuanLyNhaSachModel.KhachHang" />
+    <EntitySet Name="NguoiDungs" EntityType="QuanLyNhaSachModel.NguoiDung" />
+    <EntitySet Name="PhieuNhaps" EntityType="QuanLyNhaSachModel.PhieuNhap" />
+    <EntitySet Name="PhieuThuTiens" EntityType="QuanLyNhaSachModel.PhieuThuTien" />
+    <EntitySet Name="Saches" EntityType="QuanLyNhaSachModel.Sach" />
+    <EntitySet Name="sysdiagrams" EntityType="QuanLyNhaSachModel.sysdiagram" />
+    <AssociationSet Name="FK_ChiTietHoaDon_HoaDon" Association="QuanLyNhaSachModel.FK_ChiTietHoaDon_HoaDon">
+      <End Role="HoaDon" EntitySet="HoaDons" />
+      <End Role="ChiTietHoaDon" EntitySet="ChiTietHoaDons" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ChiTietHoaDon_Sach" Association="QuanLyNhaSachModel.FK_ChiTietHoaDon_Sach">
+      <End Role="Sach" EntitySet="Saches" />
+      <End Role="ChiTietHoaDon" EntitySet="ChiTietHoaDons" />
+    </AssociationSet>
+    <AssociationSet Name="FK_HoaDon_KhachHang" Association="QuanLyNhaSachModel.FK_HoaDon_KhachHang">
+      <End Role="KhachHang" EntitySet="KhachHangs" />
+      <End Role="HoaDon" EntitySet="HoaDons" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PhieuThuTien_KhachHang" Association="QuanLyNhaSachModel.FK_PhieuThuTien_KhachHang">
+      <End Role="KhachHang" EntitySet="KhachHangs" />
+      <End Role="PhieuThuTien" EntitySet="PhieuThuTiens" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PhieuNhap_Sach" Association="QuanLyNhaSachModel.FK_PhieuNhap_Sach">
+      <End Role="Sach" EntitySet="Saches" />
+      <End Role="PhieuNhap" EntitySet="PhieuNhaps" />
+    </AssociationSet>
+    <EntitySet Name="QuyDinhs" EntityType="QuanLyNhaSachModel.QuyDinh" />
+  </EntityContainer>
+  <EntityType Name="ChiTietHoaDon">
+    <Key>
+      <PropertyRef Name="MaHoaDon" />
+      <PropertyRef Name="MaSach" />
+    </Key>
+    <Property Name="MaHoaDon" Type="Int32" Nullable="false" />
+    <Property Name="MaSach" Type="Int32" Nullable="false" />
+    <Property Name="SoLuongMua" Type="Int32" />
+    <Property Name="DonGia" Type="Int32" />
+    <NavigationProperty Name="HoaDon" Relationship="QuanLyNhaSachModel.FK_ChiTietHoaDon_HoaDon" FromRole="ChiTietHoaDon" ToRole="HoaDon" />
+    <NavigationProperty Name="Sach" Relationship="QuanLyNhaSachModel.FK_ChiTietHoaDon_Sach" FromRole="ChiTietHoaDon" ToRole="Sach" />
+  </EntityType>
+  <EntityType Name="HoaDon">
+    <Key>
+      <PropertyRef Name="MaHoaDon" />
+    </Key>
+    <Property Name="MaHoaDon" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="MaKhachHang" Type="Int32" />
+    <Property Name="NgayLapHoaDon" Type="DateTime" Precision="0" />
+    <Property Name="BiXoa" Type="Boolean" />
+    <NavigationProperty Name="ChiTietHoaDons" Relationship="QuanLyNhaSachModel.FK_ChiTietHoaDon_HoaDon" FromRole="HoaDon" ToRole="ChiTietHoaDon" />
+    <NavigationProperty Name="KhachHang" Relationship="QuanLyNhaSachModel.FK_HoaDon_KhachHang" FromRole="HoaDon" ToRole="KhachHang" />
+  </EntityType>
+  <EntityType Name="KhachHang">
+    <Key>
+      <PropertyRef Name="MaKhachHang" />
+    </Key>
+    <Property Name="MaKhachHang" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TenKhachHang" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="DienThoai" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="DiaChi" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Tien" Type="Int32" />
+    <Property Name="BiXoa" Type="Boolean" />
+    <NavigationProperty Name="HoaDons" Relationship="QuanLyNhaSachModel.FK_HoaDon_KhachHang" FromRole="KhachHang" ToRole="HoaDon" />
+    <NavigationProperty Name="PhieuThuTiens" Relationship="QuanLyNhaSachModel.FK_PhieuThuTien_KhachHang" FromRole="KhachHang" ToRole="PhieuThuTien" />
+  </EntityType>
+  <EntityType Name="NguoiDung">
+    <Key>
+      <PropertyRef Name="tendangnhap" />
+    </Key>
+    <Property Name="tendangnhap" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="matkhau" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="loai" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="PhieuNhap">
+    <Key>
+      <PropertyRef Name="MaPhieuNhap" />
+    </Key>
+    <Property Name="MaPhieuNhap" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NgayNhap" Type="DateTime" Precision="0" />
+    <Property Name="SoLuong" Type="Int32" />
+    <Property Name="MaSach" Type="Int32" />
+    <NavigationProperty Name="Sach" Relationship="QuanLyNhaSachModel.FK_PhieuNhap_Sach" FromRole="PhieuNhap" ToRole="Sach" />
+  </EntityType>
+  <EntityType Name="PhieuThuTien">
+    <Key>
+      <PropertyRef Name="MaPhieuThuTien" />
+    </Key>
+    <Property Name="MaPhieuThuTien" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NgayThuTien" Type="DateTime" Precision="3" />
+    <Property Name="SoTienThu" Type="Int32" />
+    <Property Name="MaKhachHang" Type="Int32" />
+    <NavigationProperty Name="KhachHang" Relationship="QuanLyNhaSachModel.FK_PhieuThuTien_KhachHang" FromRole="PhieuThuTien" ToRole="KhachHang" />
+  </EntityType>
+  <EntityType Name="Sach">
+    <Key>
+      <PropertyRef Name="MaSach" />
+    </Key>
+    <Property Name="MaSach" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TenSach" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="TenTheLoai" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="TacGia" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="SoLuong" Type="Int32" />
+    <Property Name="BiXoa" Type="Boolean" />
+    <NavigationProperty Name="ChiTietHoaDons" Relationship="QuanLyNhaSachModel.FK_ChiTietHoaDon_Sach" FromRole="Sach" ToRole="ChiTietHoaDon" />
+    <NavigationProperty Name="PhieuNhaps" Relationship="QuanLyNhaSachModel.FK_PhieuNhap_Sach" FromRole="Sach" ToRole="PhieuNhap" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <Association Name="FK_ChiTietHoaDon_HoaDon">
+    <End Type="QuanLyNhaSachModel.HoaDon" Role="HoaDon" Multiplicity="1" />
+    <End Type="QuanLyNhaSachModel.ChiTietHoaDon" Role="ChiTietHoaDon" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="HoaDon">
+        <PropertyRef Name="MaHoaDon" />
+      </Principal>
+      <Dependent Role="ChiTietHoaDon">
+        <PropertyRef Name="MaHoaDon" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ChiTietHoaDon_Sach">
+    <End Type="QuanLyNhaSachModel.Sach" Role="Sach" Multiplicity="1" />
+    <End Type="QuanLyNhaSachModel.ChiTietHoaDon" Role="ChiTietHoaDon" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Sach">
+        <PropertyRef Name="MaSach" />
+      </Principal>
+      <Dependent Role="ChiTietHoaDon">
+        <PropertyRef Name="MaSach" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_HoaDon_KhachHang">
+    <End Type="QuanLyNhaSachModel.KhachHang" Role="KhachHang" Multiplicity="0..1" />
+    <End Type="QuanLyNhaSachModel.HoaDon" Role="HoaDon" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="KhachHang">
+        <PropertyRef Name="MaKhachHang" />
+      </Principal>
+      <Dependent Role="HoaDon">
+        <PropertyRef Name="MaKhachHang" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PhieuThuTien_KhachHang">
+    <End Type="QuanLyNhaSachModel.KhachHang" Role="KhachHang" Multiplicity="0..1" />
+    <End Type="QuanLyNhaSachModel.PhieuThuTien" Role="PhieuThuTien" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="KhachHang">
+        <PropertyRef Name="MaKhachHang" />
+      </Principal>
+      <Dependent Role="PhieuThuTien">
+        <PropertyRef Name="MaKhachHang" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PhieuNhap_Sach">
+    <End Type="QuanLyNhaSachModel.Sach" Role="Sach" Multiplicity="0..1" />
+    <End Type="QuanLyNhaSachModel.PhieuNhap" Role="PhieuNhap" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Sach">
+        <PropertyRef Name="MaSach" />
+      </Principal>
+      <Dependent Role="PhieuNhap">
+        <PropertyRef Name="MaSach" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="QuyDinh">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="SoLuongSachTonToiThieuDeNhap" Type="Int32" />
+    <Property Name="SoLuongSachNhapToiThieuDeNhap" Type="Int32" />
+    <Property Name="TienToiDa" Type="Int32" />
+    <Property Name="SoLuongSachTonToiThieuSauKhiBan" Type="Int32" />
+    <Property Name="TienThuLonHonNo" Type="Boolean" />
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+  </EntityType>
+</Schema>
