@@ -53,21 +53,15 @@
                     <ComboBox  Name="month"
                                 materialDesign:HintAssist.Hint="Tháng"
                                 Style="{StaticResource MaterialDesignFloatingHintComboBox}" Width="100" Margin="15">
+                        
                     </ComboBox>
-                    <ComboBox   Name="year"
+                    <ComboBox  Name="year"
                                 materialDesign:HintAssist.Hint="Năm"
-                                Style="{StaticResource MaterialDesignFloatingHintComboBox}" Width="100">
+                                Style="{StaticResource MaterialDesignFloatingHintComboBox}" Width="100" Margin="15">
+
                     </ComboBox>
-                    <ComboBox Name="test"  Margin="5 5 15 5" materialDesign:HintAssist.Hint="Tên Khách Hàng" Style="{StaticResource MaterialDesignFloatingHintComboBox}" >
-                        <ComboBox.ItemTemplate>
-                            <DataTemplate>
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="{Binding NgayNhap}" Width="auto" Height="auto"  />
-                                    
-                                </StackPanel>
-                            </DataTemplate>
-                        </ComboBox.ItemTemplate>
-                    </ComboBox>
+
+
                     <Button Style="{StaticResource MaterialDesignRaisedButton}" Margin="5"
                                             Width="100"
                                             Content="Tìm kiếm"
@@ -79,17 +73,30 @@
             </materialDesign:Card>
 
             <materialDesign:Card Grid.Row="2" Margin="5" VerticalAlignment="Stretch">
-                <ListView Name="input" ItemsSource="{Binding List}"  SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
-                        <ListView.View>
-                            <GridView>
-                                <GridViewColumn Header="Tên Sách" DisplayMemberBinding="{Binding TenSach}"></GridViewColumn>
-                                <GridViewColumn Header="Tồn Đầu" DisplayMemberBinding="{Binding TonDau}"></GridViewColumn>
-                                <GridViewColumn Header="Phát Sinh" DisplayMemberBinding="{Binding PhatSinh}"></GridViewColumn>
-                                <GridViewColumn Header="Tồn Cuối" DisplayMemberBinding="{Binding TonCuoi}"></GridViewColumn>
-                               
-                            </GridView>
-                        </ListView.View>
-                    </ListView>
+                <ListView Name="reportbook" ItemsSource="{Binding List}"  SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Tên Sách" DisplayMemberBinding="{Binding TenSach}"></GridViewColumn>
+                            <GridViewColumn Header="Tồn Đầu" DisplayMemberBinding="{Binding TonDau}"></GridViewColumn>
+                            <GridViewColumn Header="Phát Sinh" DisplayMemberBinding="{Binding PhatSinh}"></GridViewColumn>
+                            <GridViewColumn Header="Tồn Cuối" DisplayMemberBinding="{Binding TonCuoi}"></GridViewColumn>
+
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </materialDesign:Card>
+            <materialDesign:Card Grid.Row="3" Margin="5" VerticalAlignment="Stretch">
+                <ListView Name="reportmoney" ItemsSource="{Binding List}"  SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Khách hàng" DisplayMemberBinding="{Binding KhachHang}" Width="auto"></GridViewColumn>
+                            <GridViewColumn Header="Nợ đầu" DisplayMemberBinding="{Binding NoDau}"></GridViewColumn>
+                            <GridViewColumn Header="Phát sinh " DisplayMemberBinding="{Binding PhatSinh}"></GridViewColumn>
+                            <GridViewColumn Header="Nợ cuối" DisplayMemberBinding="{Binding NoCuoi}"></GridViewColumn>
+
+                        </GridView>
+                    </ListView.View>
+                </ListView>
             </materialDesign:Card>
         </Grid>
     </Grid>

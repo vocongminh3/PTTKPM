@@ -27,31 +27,49 @@ namespace QuanLyNhaSach
 
         private void login_buttun(object sender, RoutedEventArgs e)
         {
-            var db = new QuanLyKho.QuanLyNhaSachEntities();
-            var user = db.NguoiDungs.Find(username.Text);
-            if (user != null)
+            var test = new QuanLyKho.BLL.LoginBLL() ;            
+            switch (test.checkUser(username.Text, FloatingPasswordBox.Password))
             {
-                if (user.tendangnhap == username.Text && user.matkhau == FloatingPasswordBox.Password && user.loai == true)
-                {
+                case "admin":
                     this.Hide();
                     MainWindow mainWindow = new MainWindow();
                     mainWindow.ShowDialog();
-                }
-                else if (user.tendangnhap == username.Text && user.matkhau == FloatingPasswordBox.Password && user.loai == false)
-                {
+                    break;
+                case "staff":
                     this.Hide();
                     StaffWindow staffWindow = new StaffWindow();
                     staffWindow.ShowDialog();
-                }
-                else
-                {
+                    break;
+                case "":
                     MessageBox.Show("That Bai");
-                }
+                    break;
             }
-            else
-            {
-                MessageBox.Show("That Bai");
-            }
+
+
+
+            //if (user != null)
+            //{
+            //    if (user.tendangnhap == username.Text && user.matkhau == FloatingPasswordBox.Password && user.loai == true)
+            //    {
+            //        this.Hide();
+            //        MainWindow mainWindow = new MainWindow();
+            //        mainWindow.ShowDialog();
+            //    }
+            //    else if (user.tendangnhap == username.Text && user.matkhau == FloatingPasswordBox.Password && user.loai == false)
+            //    {
+            //        this.Hide();
+            //        StaffWindow staffWindow = new StaffWindow();
+            //        staffWindow.ShowDialog();
+            //    }
+            //    else
+            //    {
+            //        MessageBox.Show("That Bai");
+            //    }
+            //}
+            //else
+            //{
+            //    MessageBox.Show("That Bai");
+            //}
         }
         protected override void OnClosed(EventArgs e)
         {

@@ -52,15 +52,17 @@ namespace QuanLyNhaSach
             }
             else
             {
-                var customer = new QuanLyKho.KhachHang();
-                customer.TenKhachHang = name.Text;
-                customer.DiaChi = adress.Text;
-                customer.DienThoai = numberphone.Text;
-                customer.Email = email.Text;
-                customer.Tien = 0;
-                customer.BiXoa = false;
-                db.KhachHangs.Add(customer);
-                db.SaveChanges();
+                QuanLyKho.BLL.CustomerBLL customerBLL = new QuanLyKho.BLL.CustomerBLL();
+                customerBLL.AddCustomer(name.Text, adress.Text, numberphone.Text, email.Text);
+                //var customer = new QuanLyKho.KhachHang();
+                //customer.TenKhachHang = name.Text;
+                //customer.DiaChi = adress.Text;
+                //customer.DienThoai = numberphone.Text;
+                //customer.Email = email.Text;
+                //customer.Tien = 0;
+                //customer.BiXoa = false;
+                //db.KhachHangs.Add(customer);
+                //db.SaveChanges();
                 LoadData();
             }
         }
@@ -96,13 +98,14 @@ namespace QuanLyNhaSach
                 else
                 {
                     var selected = customerListview.SelectedItem as QuanLyKho.KhachHang;
-                    var selectedCustomer = db.KhachHangs.Find(selected.MaKhachHang);
-                    selectedCustomer.TenKhachHang = name.Text;
-                    selectedCustomer.DiaChi = adress.Text;
-                    selectedCustomer.DienThoai = numberphone.Text;
-                    selectedCustomer.Email = email.Text;
-                    db.SaveChanges();
-                    
+                    QuanLyKho.BLL.CustomerBLL customerBLL = new QuanLyKho.BLL.CustomerBLL();
+                    customerBLL.UpdateCustomer(selected.MaKhachHang, name.Text, adress.Text, numberphone.Text, email.Text);
+                    //var selectedCustomer = db.KhachHangs.Find(selected.MaKhachHang);
+                    //selectedCustomer.TenKhachHang = name.Text;
+                    //selectedCustomer.DiaChi = adress.Text;
+                    //selectedCustomer.DienThoai = numberphone.Text;
+                    //selectedCustomer.Email = email.Text;
+                    //db.SaveChanges();
                     LoadData();
                 }
                 
@@ -150,10 +153,13 @@ namespace QuanLyNhaSach
                 else
                 {
                     var selected = customerListview.SelectedItem as QuanLyKho.KhachHang;
-                    var selectedCustomer = db.KhachHangs.Find(selected.MaKhachHang);
+                    QuanLyKho.BLL.CustomerBLL customerBLL = new QuanLyKho.BLL.CustomerBLL();
+                    customerBLL.DeleteCustomer(selected.MaKhachHang);
+                    //var selectedCustomer = db.KhachHangs.Find(selected.MaKhachHang);
+                    
                     //db.KhachHangs.Remove(selectedCustomer);
-                    selectedCustomer.BiXoa = true;
-                    db.SaveChanges();
+                    //selectedCustomer.BiXoa = true;
+                    //db.SaveChanges();
 
                     LoadData();
                 }

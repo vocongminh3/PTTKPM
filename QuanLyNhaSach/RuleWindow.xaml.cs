@@ -49,15 +49,24 @@ namespace QuanLyNhaSach
 
         private void updateButton(object sender, RoutedEventArgs e)
         {
-            var db = new QuanLyKho.QuanLyNhaSachEntities();
-            var quydinh = db.QuyDinhs.FirstOrDefault();
-            quydinh.SoLuongSachNhapToiThieuDeNhap = int.Parse(slnhaptoithieu.Text);
-            quydinh.SoLuongSachTonToiThieuDeNhap = int.Parse(sltontoithieu.Text);
-            quydinh.TienToiDa = int.Parse(notoida.Text);
-            quydinh.SoLuongSachTonToiThieuSauKhiBan = int.Parse(tonsaukhiban.Text);
-            quydinh.TienThuLonHonNo = sotienthu.IsChecked;
-            db.SaveChanges();
-            LoadData();
+            try
+            {
+                QuanLyKho.BLL.RuleBLL ruleBLL = new QuanLyKho.BLL.RuleBLL();
+                ruleBLL.UpdateRule(slnhaptoithieu.Text, sltontoithieu.Text, notoida.Text, tonsaukhiban.Text, (bool)sotienthu.IsChecked);
+                //var db = new QuanLyKho.QuanLyNhaSachEntities();
+                //var quydinh = db.QuyDinhs.FirstOrDefault();
+                //quydinh.SoLuongSachNhapToiThieuDeNhap = int.Parse(slnhaptoithieu.Text);
+                //quydinh.SoLuongSachTonToiThieuDeNhap = int.Parse(sltontoithieu.Text);
+                //quydinh.TienToiDa = int.Parse(notoida.Text);
+                //quydinh.SoLuongSachTonToiThieuSauKhiBan = int.Parse(tonsaukhiban.Text);
+                //quydinh.TienThuLonHonNo = sotienthu.IsChecked;
+                //db.SaveChanges();
+                LoadData();
+            }
+            catch
+            {
+                MessageBox.Show("Dữ liệu nhập sai vui lòng nhập lại");
+            }
         }
     }
     

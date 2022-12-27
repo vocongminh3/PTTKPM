@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\ThinkKING\Desktop\Final\TestClone\dcaProject\Project-NMCNPM17\QuanLyNhaSach\obj\Debug\
+C:\Users\ThinkKING\Desktop\Final\LienThong\HK1NAM21\ThayQuy\Cuoiki\PTTKPM\QuanLyNhaSach\obj\Debug\
 QuanLyKho
 none
 false
 DEBUG;TRACE
-C:\Users\ThinkKING\Desktop\Final\TestClone\dcaProject\Project-NMCNPM17\QuanLyNhaSach\App.xaml
+C:\Users\ThinkKING\Desktop\Final\LienThong\HK1NAM21\ThayQuy\Cuoiki\PTTKPM\QuanLyNhaSach\App.xaml
 12-870547109
 3-1027584135
-31712013115
-139-545036407
+39-743242560
+139-121451949
 BillWindow.xaml;RuleWindow.xaml;ReportWindow.xaml;BookWindow.xaml;CashWindow.xaml;CustomerWindow.xaml;LoginWindow.xaml;MainWindow.xaml;ResourceXAML\MainResource.xaml;StaffWindow.xaml;UserControlKteam\ControlBarUC.xaml;UserWindow.xaml;
 
-True
+False
 

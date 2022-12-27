@@ -88,44 +88,48 @@ namespace QuanLyNhaSach
                     if (moneyText + customer.Tien >= 0 )
                     {
                         MessageBox.Show("Số tiền thu không vượt quá số tiền đang nợ");
+                        return;
                     }
-                    else
-                    {
-                        cash.MaKhachHang = customer.MaKhachHang;
-                        cash.NgayThuTien = selectedDate.Value;
-                        cash.SoTienThu = moneyText;
+                    //else
+                    //{
+                    //    cash.MaKhachHang = customer.MaKhachHang;
+                    //    cash.NgayThuTien = selectedDate.Value;
+                    //    cash.SoTienThu = moneyText;
 
-                        //cap nhap so tien khach hang
-                        var changeCustomer = db.KhachHangs.Find(customer.MaKhachHang);
-                        changeCustomer.Tien += moneyText;
+                    //    //cap nhap so tien khach hang
+                    //    var changeCustomer = db.KhachHangs.Find(customer.MaKhachHang);
+                    //    changeCustomer.Tien += moneyText;
 
 
-                        db.SaveChanges();
+                    //    db.SaveChanges();
 
-                        db.PhieuThuTiens.Add(cash);
-                        db.SaveChanges();
+                    //    db.PhieuThuTiens.Add(cash);
+                    //    db.SaveChanges();
 
-                        LoadData();
-                    }    
+                    //    LoadData();
+                    //}    
                 }
-                else
-                {
-                    cash.MaKhachHang = customer.MaKhachHang;
-                    cash.NgayThuTien = selectedDate.Value;
-                    cash.SoTienThu = moneyText;
 
-                    //cap nhap so tien khach hang
-                    var changeCustomer = db.KhachHangs.Find(customer.MaKhachHang);
-                    changeCustomer.Tien += moneyText;
+                QuanLyKho.BLL.CashBLL cashBll = new QuanLyKho.BLL.CashBLL();
+                cashBll.AddCash(customer.MaKhachHang, selectedDate.Value, moneyText);
+                //else
+                //{
+                //cash.MaKhachHang = customer.MaKhachHang;
+                //cash.NgayThuTien = selectedDate.Value;
+                //cash.SoTienThu = moneyText;
+
+                ////cap nhap so tien khach hang
+                //var changeCustomer = db.KhachHangs.Find(customer.MaKhachHang);
+                //changeCustomer.Tien += moneyText;
 
 
-                    db.SaveChanges();
+                //db.SaveChanges();
 
-                    db.PhieuThuTiens.Add(cash);
-                    db.SaveChanges();
+                //db.PhieuThuTiens.Add(cash);
+                //db.SaveChanges();
 
-                    LoadData();
-                }    
+                LoadData();
+                //}    
 
                 
                 
@@ -156,17 +160,21 @@ namespace QuanLyNhaSach
                 {
                     var db = new QuanLyKho.QuanLyNhaSachEntities();
                     var idPhieuThuTien = int.Parse(cashListview.SelectedItem.ToString().Split(',').ToList()[0].Split(' ').ToList()[3]);
-                    var cash = db.PhieuThuTiens.Find(idPhieuThuTien);
                     var customerSelected = customerCombobox.SelectedItem as QuanLyKho.KhachHang;
-                    var customer = db.KhachHangs.Find(customerSelected.MaKhachHang);
-                    customer.Tien = customer.Tien + int.Parse(money.Text) - cash.SoTienThu;
-                    db.SaveChanges();
 
-                    cash.NgayThuTien = selectedDate.Value;
-                    cash.SoTienThu = int.Parse(money.Text);
-                    cash.MaKhachHang = customerSelected.MaKhachHang;
+                    QuanLyKho.BLL.CashBLL cashBll = new QuanLyKho.BLL.CashBLL();
+                    cashBll.UpdateCash(idPhieuThuTien, customerSelected.MaKhachHang, int.Parse(money.Text), selectedDate.Value);
 
-                    db.SaveChanges();
+                    //var cash = db.PhieuThuTiens.Find(idPhieuThuTien);
+                    //var customer = db.KhachHangs.Find(customerSelected.MaKhachHang);
+                    //customer.Tien = customer.Tien + int.Parse(money.Text) - cash.SoTienThu;
+                    //db.SaveChanges();
+
+                    //cash.NgayThuTien = selectedDate.Value;
+                    //cash.SoTienThu = int.Parse(money.Text);
+                    //cash.MaKhachHang = customerSelected.MaKhachHang;
+
+                    //db.SaveChanges();
                     LoadData();
                     cashListview.SelectedItem = null;
                 }
@@ -198,13 +206,15 @@ namespace QuanLyNhaSach
                 if (Result == MessageBoxResult.Yes)
                 {
                     var db = new QuanLyKho.QuanLyNhaSachEntities();
+                    QuanLyKho.BLL.CashBLL cashBll = new QuanLyKho.BLL.CashBLL();
                     //Lấy mã khách hàng từ chuỗi chọn trên Listview
                     var idPhieuThuTien = int.Parse(cashListview.SelectedItem.ToString().Split(',').ToList()[0].Split(' ').ToList()[3]);
-                    var cash = db.PhieuThuTiens.Find(idPhieuThuTien);
-                    var customer = db.KhachHangs.Find(cash.MaKhachHang);
-                    customer.Tien -= cash.SoTienThu;
-                    db.PhieuThuTiens.Remove(cash);
-                    db.SaveChanges();
+                    cashBll.DeleteCash(idPhieuThuTien);
+                    //var cash = db.PhieuThuTiens.Find(idPhieuThuTien);
+                    //var customer = db.KhachHangs.Find(cash.MaKhachHang);
+                    //customer.Tien -= cash.SoTienThu;
+                    //db.PhieuThuTiens.Remove(cash);
+                    //db.SaveChanges();
                     LoadData();
                     cashListview.SelectedItem = null;
                 }

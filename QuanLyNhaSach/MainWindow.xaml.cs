@@ -22,12 +22,10 @@ namespace QuanLyNhaSach
     {
         ///http://materialdesigninxaml.net/home
         ///
-
+        private QuanLyKho.BLL.MainWindowBLL mainBll = new QuanLyKho.BLL.MainWindowBLL();
         private void LoadData()
         {
-            var db = new QuanLyKho.QuanLyNhaSachEntities();
-            var dataBookList = db.Saches.Where(s=>s.BiXoa == false).ToList();
-            bookList.ItemsSource = dataBookList;
+            bookList.ItemsSource = mainBll.getBooks();
         }
         public MainWindow()
         {
@@ -57,14 +55,13 @@ namespace QuanLyNhaSach
 
         private void searchButton_Click(object sender, RoutedEventArgs e)
         {
-            var db = new QuanLyKho.QuanLyNhaSachEntities();
-            bookList.ItemsSource = db.Saches.Where(s => s.TenSach.Contains(searchText.Text)).ToList();
+            bookList.ItemsSource = mainBll.getBooks();
+            //bookList.ItemsSource = mainBll.searhBooks(searchText.Text);
         }
 
         private void searchText_TextChanged(object sender, TextChangedEventArgs e)
         {
-            var db = new QuanLyKho.QuanLyNhaSachEntities();
-            bookList.ItemsSource = db.Saches.Where(s => s.TenSach.Contains(searchText.Text)).ToList();
+            bookList.ItemsSource = mainBll.searhBooks(searchText.Text);
         }
 
         private void bookList_SelectionChanged(object sender, SelectionChangedEventArgs e)
