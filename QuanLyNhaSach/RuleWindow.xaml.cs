@@ -61,6 +61,7 @@ namespace QuanLyNhaSach
                 //quydinh.SoLuongSachTonToiThieuSauKhiBan = int.Parse(tonsaukhiban.Text);
                 //quydinh.TienThuLonHonNo = sotienthu.IsChecked;
                 //db.SaveChanges();
+                MessageBox.Show("Cập nhập thành công");
                 LoadData();
             }
             catch
